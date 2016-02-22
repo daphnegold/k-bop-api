@@ -6,14 +6,14 @@ Finding new K-Pop can be hard. Especially if you're new to the genre! Get your s
 As a user you can:
 - authenticate with Spotify
 - build a playlist (get your swipe on)
+- view your playlist & listen to 30 second previews
 - save your playlist
 - modify simple user settings
 
 *What do?*  
 SHAKE IT, shake, shake it!
 
-- view your results, swipe right or left to like or dislike a song, respectively
-- swipe right and select what playlist to add a song to
+- view your results, swipe right or left to like or dislike a song
 
 As a user you must:
 - Have an Android device 😎
@@ -27,6 +27,7 @@ As a user you must:
 - search & connect with friends who also have an account
 - see what k-pop your friends are liking in a feed!
 - comment on songs
+- multiple playlists
 
 ###Technology
 - Ruby on Rails back-end (PostgreSQL)
