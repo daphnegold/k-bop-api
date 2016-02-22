@@ -1,4 +1,4 @@
-# k-bop-api
+# Product Plan
 
 Finding new K-Pop can be hard. Especially if you're new to the genre! Get your swiping finger ready cause we're gonna get you started with some awesome songs. Have a nice K-Pop adventure!
 
