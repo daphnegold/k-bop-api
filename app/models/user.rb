@@ -13,7 +13,7 @@ class User < ActiveRecord::Base
       user.uid        = auth_hash.id
       user.provider   = "spotify"
       user.token      = auth_hash.credentials.token
-
+      user.expiration = auth_hash.credentials.expires_at
       if user.save
         return user
       else
