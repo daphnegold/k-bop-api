@@ -8,8 +8,8 @@ class UsersController < ApplicationController
     else
       @user = User.find_or_create(user)
       if @user
-        render json: "You win!", status: :ok
-        # redirect_to 'http://localhost/callback'
+        # render json: "You win!", status: :ok
+        redirect_to status_path(user: user.id)
       else
         render json: "You lose!", status: :ok
       end
