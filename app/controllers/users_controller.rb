@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
   def create
+    # env['omniauth.params']
     user = RSpotify::User.new(request.env['omniauth.auth'])
 
     if user.id.nil?
