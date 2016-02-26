@@ -34,6 +34,7 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'rspotify'
 gem 'httparty', '~> 0.13.7'
 gem 'rack-cors'
+gem 'rails_12factor'
 
 group :production do
   gem 'pg'
