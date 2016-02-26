@@ -18,8 +18,8 @@ class SongsController < ApplicationController
         title: track.name,
         artist: track.album.artists.first.name,
         preview: track.preview_url,
-        image: track.album.images.first["url"],
-        spotify_url: track.external_urls
+        image_large: track.album.images.first["url"],
+        spotify_url: track.external_urls["spotify"]
       }
     end
 

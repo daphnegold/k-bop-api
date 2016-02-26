@@ -33,6 +33,7 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 # gem 'omniauth-spotify'
 gem 'rspotify'
 gem 'httparty', '~> 0.13.7'
+gem 'rack-cors'
 
 group :production do
   gem 'pg'
