@@ -7,22 +7,22 @@ class SongsController < ApplicationController
     recs = []
     temp = []
 
-    artists.each do |artist|
+    artists.pop(5).each do |artist|
       tracks = artist.top_tracks(:US)
 
       recs += tracks
     end
 
-    recs.shuffle.pop(20).each do |track|
+    recs.each do |track|
       temp << {
         title: track.name,
-        artist: track.album.artists.first.name,
+        artist: track.artists.first.name,
         preview: track.preview_url,
         image_large: track.album.images.first["url"],
         spotify_url: track.external_urls["spotify"]
       }
     end
-
+    temp = temp.shuffle
 
     render json: temp, status: :ok
   end
