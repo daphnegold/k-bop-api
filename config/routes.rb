@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   get "/auth/:provider/callback", to: "users#create"
   get "status", to: "users#status"
 
-  get "songs", to: "songs#get_songs"
+  get "recs", to: "songs#get_songs"
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
