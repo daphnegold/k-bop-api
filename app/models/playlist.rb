@@ -1,6 +1,6 @@
 class Playlist < ActiveRecord::Base
-  has_many :playlists_songs
-  has_many :songs, through: :playlists_songs
+  has_many :playlist_entries
+  has_many :songs, through: :playlist_entries
   belongs_to :user
   validate :song_uniqueness
 
