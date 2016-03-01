@@ -14,9 +14,11 @@ class SongsController < ApplicationController
     end
 
     recs.each do |track|
+      raise
       temp << {
         title: track.name,
         artist: track.artists.first.name,
+        uri: track.uri,
         preview: track.preview_url,
         image_large: track.album.images.first["url"],
         spotify_url: track.external_urls["spotify"]
