@@ -7,7 +7,7 @@ class SongsController < ApplicationController
     recs = []
     temp = []
 
-    artists.pop(5).each do |artist|
+    artists.shuffle.pop(5).each do |artist|
       tracks = artist.top_tracks(:US)
 
       recs += tracks
