@@ -1,7 +1,9 @@
 class PlaylistEntry < ActiveRecord::Base
-  validate :entry_uniqueness
   belongs_to :playlist
   belongs_to :song
+  validates :song, :presence => true
+  validates :playlist, :presence => true
+  validate :entry_uniqueness
 
   protected
 
