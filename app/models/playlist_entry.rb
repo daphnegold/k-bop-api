@@ -1,4 +1,4 @@
-class PlaylistsSong < ActiveRecord::Base
+class PlaylistEntry < ActiveRecord::Base
   validate :entry_uniqueness
   belongs_to :playlist
   belongs_to :song
@@ -6,7 +6,7 @@ class PlaylistsSong < ActiveRecord::Base
   protected
 
   def entry_uniqueness
-    if PlaylistsSong.where(song: song, playlist: playlist).count > 0
+    if PlaylistEntry.where(song: song, playlist: playlist).count > 0
       errors[:song] = "That song is already in that playlist"
     end
   end
