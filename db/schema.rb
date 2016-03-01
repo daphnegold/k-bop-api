@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160301002150) do
+ActiveRecord::Schema.define(version: 20160301182621) do
 
   create_table "playlists", force: :cascade do |t|
     t.string   "pid"
@@ -25,6 +25,7 @@ ActiveRecord::Schema.define(version: 20160301002150) do
     t.integer "song_id"
   end
 
+  add_index "playlists_songs", ["playlist_id", "song_id"], name: "index_playlists_songs_on_playlist_id_and_song_id", unique: true
   add_index "playlists_songs", ["playlist_id"], name: "index_playlists_songs_on_playlist_id"
   add_index "playlists_songs", ["song_id"], name: "index_playlists_songs_on_song_id"
 

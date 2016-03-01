@@ -4,6 +4,8 @@ Rails.application.routes.draw do
   get "status", to: "users#status"
 
   get "recs", to: "songs#get_songs"
+
+  post "add", to: "playlists#add_song"
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
