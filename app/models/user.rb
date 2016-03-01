@@ -1,6 +1,7 @@
 class User < ActiveRecord::Base
   validates :uid, presence: true
   serialize :login_data, Hash
+  has_one :playlist
 
   def self.find_or_create(spotify_user)
     # Find or create a user
