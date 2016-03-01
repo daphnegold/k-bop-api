@@ -14,7 +14,6 @@ class SongsController < ApplicationController
     end
 
     recs.each do |track|
-      raise
       temp << {
         title: track.name,
         artist: track.artists.first.name,
