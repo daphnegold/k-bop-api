@@ -3,7 +3,7 @@ class PlaylistsController < ApplicationController
 
   def delete_song
     user_id = params[:uid]
-    song_uri = params[:data][:uri]
+    song_uri = params[:uri]
 
     unless user_id && song_uri
       render json: { "error": "Invalid request" }
