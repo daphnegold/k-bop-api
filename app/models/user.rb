@@ -10,6 +10,7 @@ class User < ActiveRecord::Base
       # User found continue on with your life
       user.token      = spotify_user.credentials.token
       user.login_data = spotify_user.to_hash
+      user.save
       return user
     else
       # Create a new user
