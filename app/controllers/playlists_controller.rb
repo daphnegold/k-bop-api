@@ -10,21 +10,32 @@ class PlaylistsController < ApplicationController
     end
 
     user = User.find_by(uid: user_id)
-    song = Song.find_by(uri: song_uri)
     playlist = user.playlist
 
-    if playlist && song
-      spotify_track = RSpotify::Track.find(song.uri.split(':').last)
+    if song_uri == "all"
       spotify_playlist = RSpotify::Playlist.find(user.uid, playlist.pid)
-      spotify_playlist.remove_tracks!([spotify_track])
-      playlist_entry = PlaylistEntry.find_by(playlist: playlist, song: song)
+      spotify_tracks = spotify_playlist.tracks_cache
+      spotify_playlist.remove_tracks!(spotify_tracks)
+      PlaylistEntry.where(playlist: playlist).destroy_all
 
-      if playlist_entry
-        playlist_entry.destroy
+      render json: { "status": "Deleted all" }, status: :ok
+
+    else
+      song = Song.find_by(uri: song_uri)
+
+      if playlist && song
+        spotify_track = RSpotify::Track.find(song.uri.split(':').last)
+        spotify_playlist = RSpotify::Playlist.find(user.uid, playlist.pid)
+        spotify_playlist.remove_tracks!([spotify_track])
+        playlist_entry = PlaylistEntry.find_by(playlist: playlist, song: song)
+
+        if playlist_entry
+          playlist_entry.destroy
+        end
       end
-    end
 
-    render json: { "status": "Deleted" }, status: :ok
+      render json: { "status": "Deleted" }, status: :ok
+    end
   end
 
 
