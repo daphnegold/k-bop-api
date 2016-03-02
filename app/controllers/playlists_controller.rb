@@ -1,6 +1,33 @@
 class PlaylistsController < ApplicationController
   # everything here needs more logic regarding if access to spotify fails for some reason!
 
+  def delete_song
+    user_id = params[:uid]
+    song_uri = params[:data][:uri]
+
+    unless user_id && song_uri
+      render json: { "error": "Invalid request" }
+    end
+
+    user = User.find_by(uid: user_id)
+    song = Song.find_by(uri: song_uri)
+    playlist = user.playlist
+
+    if playlist && song
+      spotify_track = RSpotify::Track.find(song.uri.split(':').last)
+      spotify_playlist = RSpotify::Playlist.find(user.uid, playlist.pid)
+      spotify_playlist.remove_tracks!([spotify_track])
+      playlist_entry = PlaylistEntry.find_by(playlist: playlist, song: song)
+
+      if playlist_entry
+        playlist_entry.destroy
+      end
+    end
+
+    render json: { "status": "Deleted" }, status: :ok
+  end
+
+
   def get_playlist
     user_id = params[:uid]
     user = User.find_by(uid: user_id)
