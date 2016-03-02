@@ -1,6 +1,6 @@
 class PlaylistsController < ApplicationController
   # everything here needs more logic regarding if access to spotify fails for some reason!
-  
+
   def get_playlist
     user_id = params[:uid]
     user = User.find_by(uid: user_id)

@@ -13,7 +13,7 @@
 
 ActiveRecord::Schema.define(version: 20160301194357) do
 
-  create_table "playlist_entries", id: false, force: :cascade do |t|
+  create_table "playlist_entries", force: :cascade do |t|
     t.integer "playlist_id"
     t.integer "song_id"
   end
