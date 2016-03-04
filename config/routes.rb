@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   get "status", to: "users#status"
 
   get "recs", to: "songs#get_songs"
+  post "comment", to: "songs#add_comment"
 
   post "add", to: "playlists#add_song"
   get "playlist/:uid", to: "playlists#get_playlist"

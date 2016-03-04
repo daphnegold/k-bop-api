@@ -1,4 +1,16 @@
 class SongsController < ApplicationController
+  def add_comment
+    song_uri = params[:data][:uri]
+    comment_text = params[:data][:comment]
+
+    if song_uri && comment_text
+      song = Song.find_by(uri: song_uri) || Song.create(uri: song_uri)
+      song.comments << Comment.create(text: comment_text)
+    end
+
+    render json: { "status": "Ok" }, status: :ok
+  end
+
   def get_songs
     # seed ID will come from the database once there is more to go on
     seed_artist = RSpotify::Artist.find('7aZ221EQfonNG2lO9Hh192')
