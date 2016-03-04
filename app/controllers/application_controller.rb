@@ -8,7 +8,7 @@ class ApplicationController < ActionController::Base
     song = Song.find_by(uri: track_uri)
 
     if song
-      return song.comments
+      return song.comments.pluck(:text)
     else
       return []
     end
