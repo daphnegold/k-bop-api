@@ -28,6 +28,7 @@ class SongsController < ApplicationController
 
     recs.each do |track|
       likes = Song.get_likes(track.uri)
+      comments = Song.get_comments(track.uri)
 
       temp << {
         title: track.name,
@@ -36,7 +37,8 @@ class SongsController < ApplicationController
         preview: track.preview_url,
         image_large: track.album.images.first["url"],
         spotify_url: track.external_urls["spotify"],
-        likes: likes
+        likes: likes,
+        comments: comments
       }
     end
     temp = temp.shuffle
