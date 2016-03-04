@@ -6,9 +6,10 @@ class SongsController < ApplicationController
     if song_uri && comment_text
       song = Song.find_by(uri: song_uri) || Song.create(uri: song_uri)
       song.comments << Comment.create(text: comment_text)
+      render json: { "status": "Ok" }, status: :ok
+    else
+      render json: { "error": "Comment could not be created" }, status: :bad_request
     end
-
-    render json: { "status": "Ok" }, status: :ok
   end
 
   def get_songs
