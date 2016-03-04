@@ -93,6 +93,7 @@ class PlaylistsController < ApplicationController
     unless playlist_entry.save
       render json: { "status": "Entry already exists" }
     else
+      song.increment!(:likes)
       spotify_playlist = RSpotify::Playlist.find(user.uid, playlist.pid)
       spotify_playlist.add_tracks!([song])
       render json: { "status": "Ok" }, status: :ok

@@ -14,13 +14,16 @@ class SongsController < ApplicationController
     end
 
     recs.each do |track|
+      likes = Song.get_likes(track.uri)
+
       temp << {
         title: track.name,
         artist: track.artists.first.name,
         uri: track.uri,
         preview: track.preview_url,
         image_large: track.album.images.first["url"],
-        spotify_url: track.external_urls["spotify"]
+        spotify_url: track.external_urls["spotify"],
+        likes: likes
       }
     end
     temp = temp.shuffle
