@@ -4,6 +4,26 @@ class ApplicationController < ActionController::Base
   # protect_from_forgery with: :exception
   skip_before_action :verify_authenticity_token, if: :json_request?
 
+  def get_comments(track_uri)
+    song = Song.find_by(uri: track_uri)
+
+    if song
+      return song.comments
+    else
+      return []
+    end
+  end
+
+  def get_likes(track_uri)
+    song = Song.find_by(uri: track_uri)
+
+    if song
+      return song.likes
+    else
+      return 0
+    end
+  end
+
   protected
 
   def json_request?

@@ -27,8 +27,8 @@ class SongsController < ApplicationController
     end
 
     recs.each do |track|
-      likes = Song.get_likes(track.uri)
-      comments = Song.get_comments(track.uri)
+      likes = get_likes(track.uri)
+      comments = get_comments(track.uri)
 
       temp << {
         title: track.name,
