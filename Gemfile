@@ -36,6 +36,8 @@ gem 'httparty', '~> 0.13.7'
 gem 'rack-cors'
 gem 'rails_12factor'
 
+gem 'puma'
+
 group :production do
   gem 'pg'
 end
