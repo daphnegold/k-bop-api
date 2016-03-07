@@ -8,19 +8,16 @@ class User < ActiveRecord::Base
     user = self.find_by(uid: spotify_user.id)
     if !user.nil?
       # User found continue on with your life
-      user.token      = spotify_user.credentials.token
       user.login_data = spotify_user.to_hash
       user.save
       return user
     else
       # Create a new user
       user = User.new
-      user.uid        = spotify_user.id
-      user.provider   = "spotify"
-      user.token      = spotify_user.credentials.token
-      user.login_data = spotify_user.to_hash
-      # user.token      = auth_hash.credentials.token
-      # user.expiration = auth_hash.credentials.expires_at
+      user.uid          = spotify_user.id
+      user.provider     = "spotify"
+      user.display_name = spotify_user.display_name || spotify_user.id 
+      user.login_data   = spotify_user.to_hash
       if user.save
         return user
       else
