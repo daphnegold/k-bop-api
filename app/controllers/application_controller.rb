@@ -8,7 +8,7 @@ class ApplicationController < ActionController::Base
     song = Song.find_by(uri: track_uri)
 
     if song
-      return song.comments.pluck(:text)
+      return Comment.joins(:user).where(song_id: song.id).pluck_to_hash(:text, :display_name)
     else
       return []
     end

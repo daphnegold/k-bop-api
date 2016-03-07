@@ -35,6 +35,7 @@ gem 'rspotify'
 gem 'httparty', '~> 0.13.7'
 gem 'rack-cors'
 gem 'rails_12factor'
+gem 'pluck_to_hash', '~> 0.1.3'
 
 gem 'puma'
 
