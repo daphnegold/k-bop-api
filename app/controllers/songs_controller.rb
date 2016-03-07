@@ -2,10 +2,12 @@ class SongsController < ApplicationController
   def add_comment
     song_uri = params[:data][:uri]
     comment_text = params[:data][:comment]
+    uid = params[:data][:uid]
 
-    if song_uri && comment_text
+    if song_uri && comment_text && uid
+      user = User.find_by(uid: uid)
       song = Song.find_by(uri: song_uri) || Song.create(uri: song_uri)
-      song.comments << Comment.create(text: comment_text)
+      song.comments << Comment.create(text: comment_text, user_id: user.id)
       render json: { "status": "Ok" }, status: :ok
     else
       render json: { "error": "Comment could not be created" }, status: :bad_request

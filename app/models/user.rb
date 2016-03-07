@@ -2,6 +2,7 @@ class User < ActiveRecord::Base
   validates :uid, presence: true
   serialize :login_data, Hash
   has_one :playlist
+  has_many :comments
 
   def self.find_or_create(spotify_user)
     # Find or create a user
@@ -16,7 +17,7 @@ class User < ActiveRecord::Base
       user = User.new
       user.uid          = spotify_user.id
       user.provider     = "spotify"
-      user.display_name = spotify_user.display_name || spotify_user.id 
+      user.display_name = spotify_user.display_name || spotify_user.id
       user.login_data   = spotify_user.to_hash
       if user.save
         return user
