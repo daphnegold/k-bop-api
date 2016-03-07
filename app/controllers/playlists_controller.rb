@@ -11,6 +11,7 @@ class PlaylistsController < ApplicationController
 
     user = User.find_by(uid: user_id)
     playlist = user.playlist
+    User.refresh_token(user)
 
     if song_uri == "all"
       spotify_playlist = RSpotify::Playlist.find(user.uid, playlist.pid)
@@ -42,8 +43,12 @@ class PlaylistsController < ApplicationController
   def get_playlist
     user_id = params[:uid]
     user = User.find_by(uid: user_id)
-    playlist = user.playlist
     temp = []
+
+    if user
+      User.refresh_token(user)
+      playlist = user.playlist
+    end
 
     if playlist
       spotify_playlist = RSpotify::Playlist.find(user.uid, playlist.pid)
@@ -78,11 +83,9 @@ class PlaylistsController < ApplicationController
       render json: { "error": "Invalid request" }
     end
 
-    # add more logic for if a user is not logged in... that's bad.
     user = User.find_by(uid: user_id)
-
     if user
-      spotify_user = RSpotify::User.new(user.login_data)
+      spotify_user = User.refresh_token(user)
       playlist = user.playlist
 
       unless playlist

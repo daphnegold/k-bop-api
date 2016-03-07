@@ -4,6 +4,14 @@ class User < ActiveRecord::Base
   has_one :playlist
   has_many :comments
 
+  def self.refresh_token(user)
+    spotify_user = RSpotify::User.new(user.login_data)
+    user.login_data = spotify_user.to_hash
+    user.save
+
+    return spotify_user
+  end
+
   def self.find_or_create(spotify_user)
     # Find or create a user
     user = self.find_by(uid: spotify_user.id)
