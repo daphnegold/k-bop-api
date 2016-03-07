@@ -31,7 +31,7 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 # gem 'capistrano-rails', group: :development
 
 # gem 'omniauth-spotify'
-gem 'rspotify'
+gem 'rspotify', '>= 1.16.1'
 gem 'httparty', '~> 0.13.7'
 gem 'rack-cors'
 gem 'rails_12factor'
