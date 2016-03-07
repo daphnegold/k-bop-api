@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   get "/auth/:provider/callback", to: "users#create"
   get "status", to: "users#status"
 
-  get "recs", to: "songs#get_songs"
+  get "recs/:uid", to: "songs#get_songs"
   post "comment", to: "songs#add_comment"
 
   post "add", to: "playlists#add_song"

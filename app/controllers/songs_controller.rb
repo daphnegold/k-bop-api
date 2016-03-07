@@ -15,14 +15,18 @@ class SongsController < ApplicationController
   end
 
   def get_songs
-    # seed ID will come from the database once there is more to go on
-    if User.first.playlist
-      User.first.playlist.songs.order("Random()").first
+    user = User.find_by(uid: params[:uid])
+    if user && user.playlist
+      song = user.playlist.songs.order("Random()").first
     else
-      seed_artist = Song.order("Random()").first
-      unless seed_artist
-        seed_artist = RSpotify::Artist.find('7aZ221EQfonNG2lO9Hh192')
-      end
+      song = Song.order("Random()").first
+    end
+
+    if song
+      song_uri = song.uri.split(":").last
+      seed_artist = RSpotify::Artist.find(song_uri)
+    else
+      seed_artist = RSpotify::Artist.find('7aZ221EQfonNG2lO9Hh192')
     end
     artists = seed_artist.related_artists
 
