@@ -50,7 +50,32 @@ RSpec.configure do |config|
     # The mock_auth configuration allows you to
     # set per-provider (or default) authentication
     # hashes to return during testing.
-    OmniAuth.config.mock_auth[:spotify] = OmniAuth::AuthHash.new({:id => 'darkwingdaphne'})
+    OmniAuth.config.mock_auth[:spotify] = OmniAuth::AuthHash.new({
+      "provider"=>"spotify",
+      "uid"=>"darkwingdaphne",
+      "info"=>{
+        "country"=>"US",
+        "display_name"=>nil,
+        "email"=>"",
+        "external_urls"=>{
+          "spotify"=>"https://open.spotify.com/user/darkwingdaphne"
+        },
+        "followers"=>{"href"=>nil, "total"=>0},
+        "href"=>"https://api.spotify.com/v1/users/darkwingdaphne",
+        "id"=>"darkwingdaphne",
+        "images"=>[],
+        "product"=>"open",
+        "type"=>"user",
+        "uri"=>"spotify:user:darkwingdaphne",
+        "name"=>""},
+        "credentials"=>{
+          "token"=>"BQBJGd4xvciREZZmZxK4HdQnPfGb-QMEv8lIBzinhjP_7tZYj3OoZmsOZrWEWwpBTtoirB2vkUGnyOoXdDJv76GQbOrGvgt1vOWAaR6yfdDqlFwQtOMk1_nt58sI6wG3To6MTf8ZIKL7BmINQ0RS9jAIfxZzYDGAWz4l_0vlASg5G8YA5UdHWTCiA-KzPb34iVHeyUds_m9F0Ju0L-ezvUDe7haSdDpM47uurhKMO5Di-OeG5hor-WhpHmrLp5go5DQLnQoWU2Tb",
+          "refresh_token"=>"AQAqYquHWTrUcn81yNtvstJIZA6aR_5XdfcK_mHZQ_Zj7mqSDKYBG_bw6zNyN123RuXkZ9M4O7Pab-FfUtevQBs9Vfi7Hw0-TL3rvukmYWidx89RVsiMfFyurc5aoLz5CEE",
+          "expires_at"=>1457423081,
+          "expires"=>true
+        },
+        "extra"=>{}
+      })
   end
 
   config.include FactoryGirl::Syntax::Methods

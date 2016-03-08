@@ -49,6 +49,7 @@ group :development, :test do
   gem 'rspec-rails'
   gem 'factory_girl_rails', '~> 4.6'
   gem 'simplecov', require: false
+  gem 'dotenv-rails', '~> 2.1', :require => 'dotenv/rails-now'
 end
 
 group :test do
@@ -67,7 +68,6 @@ group :development do
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
 
-  gem 'dotenv-rails', '~> 2.1', :require => 'dotenv/rails-now'
   # Use sqlite3 as the database for Active Record
   gem 'sqlite3'
 end
