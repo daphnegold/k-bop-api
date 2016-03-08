@@ -1,4 +1,11 @@
 # This file is copied to spec/ when you run 'rails generate rspec:install'
+require "simplecov"
+
+SimpleCov.start('rails') do
+  add_filter "/support/"
+  add_filter "/helpers/"
+end
+
 ENV['RAILS_ENV'] ||= 'test'
 require File.expand_path('../../config/environment', __FILE__)
 # Prevent database truncation if the environment is production
@@ -54,4 +61,11 @@ RSpec.configure do |config|
   config.filter_rails_from_backtrace!
   # arbitrary gems may also be filtered via:
   # config.filter_gems_from_backtrace("gem name")
+end
+
+VCR.configure do |c|
+  c.cassette_library_dir = 'spec/vcr'
+  c.configure_rspec_metadata!
+  c.hook_into :webmock
+  c.allow_http_connections_when_no_cassette = true
 end

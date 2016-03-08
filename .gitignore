@@ -18,6 +18,7 @@
 
 coverage
 .env
+spec/vcr/api_responses.yml
 
 # Elastic Beanstalk Files
 .elasticbeanstalk/*
