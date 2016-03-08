@@ -50,7 +50,7 @@ RSpec.configure do |config|
     # The mock_auth configuration allows you to
     # set per-provider (or default) authentication
     # hashes to return during testing.
-    OmniAuth.config.mock_auth[:spotify] = OmniAuth::AuthHash.new({:provider => 'spotify', :id => nil, :uid => 'darkwingdaphne', display_name: 'darkwingdaphne'})
+    OmniAuth.config.mock_auth[:spotify] = OmniAuth::AuthHash.new({:id => 'darkwingdaphne'})
   end
 
   config.include FactoryGirl::Syntax::Methods

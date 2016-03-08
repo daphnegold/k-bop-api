@@ -1,8 +1,7 @@
 FactoryGirl.define do
-  factory :user do
-    uid "MyString"
-    provider "MyString"
-    token "MyString"
-    expiration 1
+  factory :spotify_user, class: User do
+    uid "darkwingdaphne"
+    display_name "darkwingdaphne"
+    provider "spotify"
   end
 end
