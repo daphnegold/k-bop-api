@@ -1,13 +1,9 @@
 FactoryGirl.define do
-  factory :song do
-    uri "spotify:track:6W7QMUPT1CT6zSU57DrwNp"
-    playlist
-  end
-
-  factory :playlist do
+  factory :playlist, class: Playlist do
     pid "0Q5ohSUKBkHyENC9JcNSki"
 
-    factory :playlist_with_songs do
+    after(:create) do |playlist|
+      playlist.songs << FactoryGirl.create(:song)
     end
   end
 end

@@ -46,6 +46,8 @@ RSpec.configure do |config|
   end
 
   config.before(:suite) do
+    RSpotify::authenticate(ENV['SPOTIFY_CLIENT_ID'], ENV['SPOTIFY_CLIENT_SECRET'])
+
     OmniAuth.config.test_mode = true
     # The mock_auth configuration allows you to
     # set per-provider (or default) authentication
@@ -57,9 +59,7 @@ RSpec.configure do |config|
         "country"=>"US",
         "display_name"=>nil,
         "email"=>"",
-        "external_urls"=>{
-          "spotify"=>"https://open.spotify.com/user/darkwingdaphne"
-        },
+        "external_urls"=>{"spotify"=>"https://open.spotify.com/user/darkwingdaphne"},
         "followers"=>{"href"=>nil, "total"=>0},
         "href"=>"https://api.spotify.com/v1/users/darkwingdaphne",
         "id"=>"darkwingdaphne",

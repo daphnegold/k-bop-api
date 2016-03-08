@@ -3,5 +3,6 @@ FactoryGirl.define do
     uid "darkwingdaphne"
     display_name "darkwingdaphne"
     provider "spotify"
+    playlist { create(:playlist) }
   end
 end

@@ -4,10 +4,6 @@ RSpec.describe UsersController, type: :controller do
   let(:user) { create(:spotify_user) }
   let(:rspotify_object) { RSpotify::User.new(OmniAuth.config.mock_auth[:spotify]) }
 
-  VCR.use_cassette('api_responses', :record => :new_episodes) do
-    RSpotify::authenticate(ENV['SPOTIFY_CLIENT_ID'], ENV['SPOTIFY_CLIENT_SECRET'])
-  end
-
   describe "#create" do
     context "auth successful" do
       before { request.env["omniauth.auth"] = OmniAuth.config.mock_auth[:spotify] }
