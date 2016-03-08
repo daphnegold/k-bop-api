@@ -11,7 +11,8 @@ class PlaylistsController < ApplicationController
 
     user = User.find_by(uid: user_id)
     playlist = user.playlist
-    User.refresh_token(user)
+    # do I need this line?
+    User.rspotified(user)
 
     if song_uri == "all"
       spotify_playlist = RSpotify::Playlist.find(user.uid, playlist.pid)
@@ -46,7 +47,8 @@ class PlaylistsController < ApplicationController
     temp = []
 
     if user
-      User.refresh_token(user)
+      # do I need this line?
+      User.rspotified(user)
       playlist = user.playlist
     end
 
@@ -85,7 +87,7 @@ class PlaylistsController < ApplicationController
 
     user = User.find_by(uid: user_id)
     if user
-      spotify_user = User.refresh_token(user)
+      spotify_user = User.rspotified(user)
       playlist = user.playlist
 
       unless playlist

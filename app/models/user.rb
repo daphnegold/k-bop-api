@@ -4,7 +4,7 @@ class User < ActiveRecord::Base
   has_one :playlist
   has_many :comments
 
-  def self.refresh_token(user)
+  def self.rspotified(user)
     spotify_user = RSpotify::User.new(user.login_data)
     user.login_data = spotify_user.to_hash
     user.save
