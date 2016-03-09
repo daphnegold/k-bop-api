@@ -3,7 +3,7 @@ FactoryGirl.define do
     pid "0Q5ohSUKBkHyENC9JcNSki"
 
     after(:create) do |playlist|
-      playlist.songs << FactoryGirl.create(:song)
+      playlist.songs << create(:song)
     end
   end
 end

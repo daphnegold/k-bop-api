@@ -4,39 +4,40 @@ class PlaylistsController < ApplicationController
   def delete_song
     user_id = params[:uid]
     song_uri = params[:uri]
-
-    unless user_id && song_uri
-      render json: { "error": "Invalid request" }
-    end
-
     user = User.find_by(uid: user_id)
-    playlist = user.playlist
-    # do I need this line?
-    User.rspotified(user)
 
-    if song_uri == "all"
-      spotify_playlist = RSpotify::Playlist.find(user.uid, playlist.pid)
-      spotify_tracks = spotify_playlist.tracks_cache
-      spotify_playlist.remove_tracks!(spotify_tracks)
-      PlaylistEntry.where(playlist: playlist).destroy_all
-
-      render json: { "status": "Deleted all" }, status: :ok
-
+    unless user
+      render json: { "error": "Invalid request" }
     else
-      song = Song.find_by(uri: song_uri)
+      playlist = user.playlist
 
-      if playlist && song
-        spotify_track = RSpotify::Track.find(song.uri.split(':').last)
+      # do I need this line?
+      # User.rspotified(user)
+
+      if song_uri == "all"
         spotify_playlist = RSpotify::Playlist.find(user.uid, playlist.pid)
-        spotify_playlist.remove_tracks!([spotify_track])
-        playlist_entry = PlaylistEntry.find_by(playlist: playlist, song: song)
+        spotify_tracks = spotify_playlist.tracks_cache
+        spotify_playlist.remove_tracks!(spotify_tracks)
+        PlaylistEntry.where(playlist: playlist).destroy_all
 
-        if playlist_entry
-          playlist_entry.destroy
+        render json: { "status": "Deleted all" }, status: :ok
+
+      else
+        song = Song.find_by(uri: song_uri)
+
+        if playlist && song
+          spotify_track = RSpotify::Track.find(song.uri.split(':').last)
+          spotify_playlist = RSpotify::Playlist.find(user.uid, playlist.pid)
+          spotify_playlist.remove_tracks!([spotify_track])
+          playlist_entry = PlaylistEntry.find_by(playlist: playlist, song: song)
+
+          if playlist_entry
+            playlist_entry.destroy
+          end
         end
-      end
 
-      render json: { "status": "Deleted" }, status: :ok
+        render json: { "status": "Deleted" }, status: :ok
+      end
     end
   end
 
@@ -48,7 +49,7 @@ class PlaylistsController < ApplicationController
 
     if user
       # do I need this line?
-      User.rspotified(user)
+      # User.rspotified(user)
       playlist = user.playlist
     end
 
@@ -78,35 +79,35 @@ class PlaylistsController < ApplicationController
   end
 
   def add_song
-    user_id = params[:data][:user]
+    user_id = params[:data][:uid]
     song_uri = params[:data][:uri]
 
     unless user_id && song_uri
-      render json: { "error": "Invalid request" }
-    end
+      render json: { "error": "Invalid request" }, status: :bad_request
+    else
+      user = User.find_by(uid: user_id)
+      if user
+        spotify_user = User.rspotified(user)
+        playlist = user.playlist
 
-    user = User.find_by(uid: user_id)
-    if user
-      spotify_user = User.rspotified(user)
-      playlist = user.playlist
+        unless playlist
+          spotify_playlist = spotify_user.create_playlist!('k-bop')
+          playlist = Playlist.create(pid: spotify_playlist.id)
+          user.playlist = playlist
+        end
 
-      unless playlist
-        spotify_playlist = spotify_user.create_playlist!('k-bop')
-        playlist = Playlist.create(pid: spotify_playlist.id)
-        user.playlist = playlist
+        song = Song.find_by(uri: song_uri) || Song.create(uri: song_uri)
+        playlist_entry = PlaylistEntry.new(song: song, playlist: playlist)
       end
 
-      song = Song.find_by(uri: song_uri) || Song.create(uri: song_uri)
-      playlist_entry = PlaylistEntry.new(song: song, playlist: playlist)
-    end
-
-    unless playlist_entry.save
-      render json: { "status": "Entry already exists" }
-    else
-      song.increment!(:likes)
-      spotify_playlist = RSpotify::Playlist.find(user.uid, playlist.pid)
-      spotify_playlist.add_tracks!([song])
-      render json: { "status": "Ok" }, status: :ok
+      unless playlist_entry.save
+        render json: { "status": "Entry already exists" }
+      else
+        song.increment!(:likes)
+        spotify_playlist = RSpotify::Playlist.find(user.uid, playlist.pid)
+        spotify_playlist.add_tracks!([song])
+        render json: { "status": "Ok" }, status: :ok
+      end
     end
   end
 end

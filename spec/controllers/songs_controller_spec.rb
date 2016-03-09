@@ -2,7 +2,6 @@ require 'rails_helper'
 
 RSpec.describe SongsController, type: :controller do
   let!(:user) { create(:spotify_user) }
-  # let(:rspotify_object) { RSpotify::User.new(OmniAuth.config.mock_auth[:spotify]) }
   let(:song_params) { { uid: "darkwingdaphne" } }
   let(:comment_bad_params) { { data: { } } }
   let(:comment_good_params) do
