@@ -34,8 +34,8 @@ RSpec.describe SongsController, type: :controller do
 
   describe "#get_songs" do
     context "user has playlist with songs" do
-      it "response status :ok" do
-        VCR.use_cassette('api_responses', :record => :new_episodes) do
+      xit "response status :ok" do
+        VCR.use_cassette('api_responses', :record => :once) do
           get :get_songs, song_params
           expect(response.status).to eq 200
         end
@@ -45,7 +45,7 @@ RSpec.describe SongsController, type: :controller do
     context "user has playlist without songs" do
       it "response status :ok" do
         user.playlist.songs.destroy_all
-        VCR.use_cassette('api_responses', :record => :new_episodes) do
+        VCR.use_cassette('api_responses', :record => :once) do
           get :get_songs, song_params
           expect(response.status).to eq 200
         end
@@ -56,7 +56,7 @@ RSpec.describe SongsController, type: :controller do
   context "user has no playlist" do
     it "response status :ok" do
       user.playlist.destroy
-      VCR.use_cassette('api_responses', :record => :new_episodes) do
+      VCR.use_cassette('api_responses', :record => :once) do
         get :get_songs, song_params
         expect(response.status).to eq 200
       end

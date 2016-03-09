@@ -23,7 +23,7 @@ require 'webmock/rspec'
 #
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
 RSpec.configure do |config|
-  # WebMock.stub_request(:any, "https://api.spotify.com/v1/users/darkwingdaphne/playlists")
+  WebMock.stub_request(:any, "https://api.spotify.com/v1/artists/")
 
   # rspec-expectations config goes here. You can use an alternate
   # assertion/expectation library such as wrong or the stdlib/minitest
