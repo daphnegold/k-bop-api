@@ -17,8 +17,10 @@ RSpec.describe User, type: :model do
 
   describe ".find_or_create" do
     it "creates a valid user" do
-      spotify_user = User.find_or_create(rspotify_object)
-      expect(spotify_user).to be_valid
+      VCR.use_cassette('api_responses', :record => :new_episodes) do
+        spotify_user = User.find_or_create(rspotify_object)
+        expect(spotify_user).to be_valid
+      end
     end
 
     it "finds a valid user" do
