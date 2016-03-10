@@ -27,7 +27,7 @@ class SongsController < ApplicationController
       seed_track = RSpotify::Track.find(song_uri)
       artists = seed_track.artists.first.related_artists
     else
-      seed_artist = RSpotify::Artist.find('6cdC1cwqh3eJAXaxXJt2jv')
+      seed_artist = RSpotify::Artist.find('0Sadg1vgvaPqGTOjxu0N6c')
       artists = seed_artist.related_artists
     end
 
