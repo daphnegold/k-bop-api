@@ -11,9 +11,6 @@ class PlaylistsController < ApplicationController
     else
       playlist = user.playlist
 
-      # do I need this line?
-      # User.rspotified(user)
-
       if song_uri == "all"
         spotify_playlist = RSpotify::Playlist.find(user.uid, playlist.pid)
         spotify_tracks = spotify_playlist.tracks_cache
@@ -46,30 +43,36 @@ class PlaylistsController < ApplicationController
     user_id = params[:uid]
     user = User.find_by(uid: user_id)
     temp = []
+    track_count = -1
 
     if user
-      # do I need this line?
-      # User.rspotified(user)
       playlist = user.playlist
     end
 
     if playlist
       spotify_playlist = RSpotify::Playlist.find(user.uid, playlist.pid)
 
-      spotify_playlist.tracks_cache.each do |track|
-        likes = get_likes(track.uri)
-        comments = get_comments(track.uri)
+      while true
+        tracks = spotify_playlist.tracks(offset: track_count + 1)
+        break if tracks.empty?
 
-        temp << {
-          title: track.name,
-          artist: track.artists.first.name,
-          uri: track.uri,
-          preview: track.preview_url,
-          image_large: track.album.images.first["url"],
-          spotify_url: track.external_urls["spotify"],
-          likes: likes,
-          comments: comments
-        }
+        tracks.each do |track|
+          likes = get_likes(track.uri)
+          comments = get_comments(track.uri)
+
+          temp << {
+            title: track.name,
+            artist: track.artists.first.name,
+            uri: track.uri,
+            preview: track.preview_url,
+            image_large: track.album.images.first["url"],
+            spotify_url: track.external_urls["spotify"],
+            likes: likes,
+            comments: comments
+          }
+        end
+
+        track_count += (track_count < 100) ? 101 : 100
       end
 
       render json: temp, status: :ok

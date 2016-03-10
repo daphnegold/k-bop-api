@@ -65,7 +65,13 @@ end
 
 VCR.configure do |c|
   c.cassette_library_dir = 'spec/vcr'
+  c.debug_logger = $stdout
   c.configure_rspec_metadata!
   c.hook_into :webmock
   c.allow_http_connections_when_no_cassette = false
+  # c.register_request_matcher :ignore_ending do |r1, r2|
+  #   if URI(r1.uri).path.split("/") & ["playlists", "artists", "tracks"]
+  #     URI(r1.uri).to_s.split("/")[0..4] == URI(r2.uri).to_s.split("/")[0..4]
+  #   end
+  # end
 end
