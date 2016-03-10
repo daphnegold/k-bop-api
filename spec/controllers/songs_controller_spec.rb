@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe SongsController, type: :controller do
+RSpec.describe SongsController, vcr: { :match_requests_on => [:method, :ignore_ending] }, type: :controller do
   let!(:user) { create(:spotify_user) }
   let(:song_params) { { uid: "darkwingdaphne" } }
   let(:comment_bad_params) { { data: { } } }
@@ -33,36 +33,30 @@ RSpec.describe SongsController, type: :controller do
   end
 
   describe "#get_songs" do
+    before :each do
+      authentication_time
+    end
     context "user has playlist with songs" do
       xit "response status :ok" do
-        VCR.use_cassette('api_responses', :record => :new_episodes) do
-          get :get_songs, song_params
-          expect(response.status).to eq 200
-        end
+        get :get_songs, song_params
+        expect(response.status).to eq 200
       end
     end
 
     context "user has playlist without songs" do
       it "response status :ok" do
         user.playlist.songs.destroy_all
-        # VCR.use_cassette('api_responses', :match_requests_on => [:method, :uri, :ignore_ending], :record => :new_episodes) do
-        VCR.use_cassette('api_responses', :record => :new_episodes) do
-          get :get_songs, song_params
-          expect(response.status).to eq 200
-        end
+        get :get_songs, song_params
+        expect(response.status).to eq 200
       end
     end
-  end
 
-  context "user has no playlist" do
-    it "response status :ok" do
-      user.playlist.destroy
-      # VCR.use_cassette('api_responses', :match_requests_on => [:method, :uri, :ignore_ending], :record => :new_episodes) do
-      VCR.use_cassette('api_responses', :record => :new_episodes) do
+    context "user has no playlist" do
+      it "response status :ok" do
+        user.playlist.destroy
         get :get_songs, song_params
         expect(response.status).to eq 200
       end
     end
   end
-
 end

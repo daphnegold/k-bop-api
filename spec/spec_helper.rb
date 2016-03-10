@@ -23,6 +23,9 @@ require 'webmock/rspec'
 #
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
 RSpec.configure do |config|
+  config.alias_example_to :fit, focused: true
+  config.filter_run focused: true
+  config.run_all_when_everything_filtered = true
   # WebMock.stub_request(:any, "https://api.spotify.com/v1/artists/")
 
   # rspec-expectations config goes here. You can use an alternate
@@ -48,9 +51,9 @@ RSpec.configure do |config|
     mocks.verify_partial_doubles = true
   end
 
-  VCR.use_cassette('auth_response', :record => :new_episodes) do
-    RSpotify::authenticate(ENV['SPOTIFY_CLIENT_ID'], ENV['SPOTIFY_CLIENT_SECRET'])
-  end
+  # VCR.use_cassette('auth_response', :record => :new_episodes) do
+  #   RSpotify::authenticate(ENV['SPOTIFY_CLIENT_ID'], ENV['SPOTIFY_CLIENT_SECRET'])
+  # end
 
   config.before(:suite) do
     OmniAuth.config.test_mode = true
@@ -74,8 +77,8 @@ RSpec.configure do |config|
         "uri"=>"spotify:user:darkwingdaphne",
         "name"=>""},
         "credentials"=>{
-          "token"=>"BQBJGd4xvciREZZmZxK4HdQnPfGb-QMEv8lIBzinhjP_7tZYj3OoZmsOZrWEWwpBTtoirB2vkUGnyOoXdDJv76GQbOrGvgt1vOWAaR6yfdDqlFwQtOMk1_nt58sI6wG3To6MTf8ZIKL7BmINQ0RS9jAIfxZzYDGAWz4l_0vlASg5G8YA5UdHWTCiA-KzPb34iVHeyUds_m9F0Ju0L-ezvUDe7haSdDpM47uurhKMO5Di-OeG5hor-WhpHmrLp5go5DQLnQoWU2Tb",
-          "refresh_token"=>"AQAqYquHWTrUcn81yNtvstJIZA6aR_5XdfcK_mHZQ_Zj7mqSDKYBG_bw6zNyN123RuXkZ9M4O7Pab-FfUtevQBs9Vfi7Hw0-TL3rvukmYWidx89RVsiMfFyurc5aoLz5CEE",
+          "token"=>ENV['TEST_TOKEN'],
+          "refresh_token"=>ENV['TEST_REFRESH'],
           "expires_at"=>1457423081,
           "expires"=>true
         },
@@ -134,4 +137,8 @@ RSpec.configure do |config|
   # as the one that triggered the failure.
   Kernel.srand config.seed
 =end
+end
+
+def authentication_time
+  RSpotify::authenticate(ENV['SPOTIFY_CLIENT_ID'], ENV['SPOTIFY_CLIENT_SECRET'])
 end
