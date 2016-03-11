@@ -51,6 +51,7 @@ class PlaylistsController < ApplicationController
 
     if playlist
       spotify_playlist = RSpotify::Playlist.find(user.uid, playlist.pid)
+      external_link = spotify_playlist.external_urls["spotify"]
 
       while true
         tracks = spotify_playlist.tracks(offset: track_count + 1)
@@ -75,7 +76,7 @@ class PlaylistsController < ApplicationController
         track_count += (track_count < 100) ? 101 : 100
       end
 
-      render json: temp, status: :ok
+      render json: { data: { songs: temp, link: external_link } }, status: :ok
     else
       render json: [], status: :no_content
     end
