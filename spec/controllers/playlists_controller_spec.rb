@@ -2,7 +2,6 @@ require 'rails_helper'
 
 RSpec.describe PlaylistsController, :vcr, type: :controller do
   let!(:user) { create(:spotify_user) }
-  let!(:rspotify_object) { RSpotify::User.new(OmniAuth.config.mock_auth[:spotify]) }
   let(:delete_params) { { uid: "darkwingdaphne", uri: "spotify:track:6W7QMUPT1CT6zSU57DrwNp" } }
   let(:playlist_params) { { uid: "darkwingdaphne" } }
   let(:add_params) { { data: { uid: "darkwingdaphne", uri: "spotify:track:23Uh5wuT3mRhTAs86H5WDt" } } }
@@ -36,7 +35,7 @@ RSpec.describe PlaylistsController, :vcr, type: :controller do
     end
 
     context "user doesn't have a playlist" do
-      xit "makes a new playlist and adds song" do
+      it "makes a new playlist and adds song" do
         user.playlist = nil
         json_response = { "status": "Ok" }.to_json
         post :add_song, add_params

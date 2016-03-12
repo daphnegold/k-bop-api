@@ -47,10 +47,12 @@ class PlaylistsController < ApplicationController
 
     if user
       playlist = user.playlist
+      spotify_user = User.rspotified(user)
     end
 
     if playlist
       spotify_playlist = RSpotify::Playlist.find(user.uid, playlist.pid)
+      spotify_user.follow(spotify_playlist)
       external_link = spotify_playlist.external_urls["spotify"]
 
       while true
@@ -109,6 +111,7 @@ class PlaylistsController < ApplicationController
       else
         song.increment!(:likes)
         spotify_playlist = RSpotify::Playlist.find(user.uid, playlist.pid)
+        spotify_user.follow(spotify_playlist)
         spotify_playlist.add_tracks!([song])
         render json: { "status": "Ok" }, status: :ok
       end

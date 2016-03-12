@@ -37,7 +37,7 @@ RSpec.describe SongsController, vcr: { :match_requests_on => [:method, :ignore_e
       authentication_time
     end
     context "user has playlist with songs" do
-      xit "response status :ok" do
+      it "response status :ok" do
         get :get_songs, song_params
         expect(response.status).to eq 200
       end
