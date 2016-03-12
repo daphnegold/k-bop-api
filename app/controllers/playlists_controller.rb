@@ -60,19 +60,20 @@ class PlaylistsController < ApplicationController
         break if tracks.empty?
 
         tracks.each do |track|
-          likes = get_likes(track.uri)
-          comments = get_comments(track.uri)
-
-          temp << {
-            title: track.name,
-            artist: track.artists.first.name,
-            uri: track.uri,
-            preview: track.preview_url,
-            image_large: track.album.images.first["url"],
-            spotify_url: track.external_urls["spotify"],
-            likes: likes,
-            comments: comments
-          }
+          if playlist.songs.find_by(uri: track.uri)
+            likes = get_likes(track.uri)
+            comments = get_comments(track.uri)
+            temp << {
+              title: track.name,
+              artist: track.artists.first.name,
+              uri: track.uri,
+              preview: track.preview_url,
+              image_large: track.album.images.first["url"],
+              spotify_url: track.external_urls["spotify"],
+              likes: likes,
+              comments: comments
+            }
+          end
         end
 
         track_count += (track_count < 100) ? 101 : 100
