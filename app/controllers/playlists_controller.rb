@@ -1,6 +1,5 @@
 class PlaylistsController < ApplicationController
-  # everything here needs more logic regarding if access to spotify fails for some reason!
-
+  
   def delete_song
     user_id = params[:uid]
     song_uri = params[:uri]
