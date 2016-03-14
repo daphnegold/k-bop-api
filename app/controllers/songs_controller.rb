@@ -15,6 +15,8 @@ class SongsController < ApplicationController
   end
 
   def get_songs
+    rspotify_auth
+    
     user = User.find_by(uid: params[:uid])
     if user && user.playlist
       song = user.playlist.songs.order("Random()").first

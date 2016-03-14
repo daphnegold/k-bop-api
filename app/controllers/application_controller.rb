@@ -4,6 +4,10 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   skip_before_action :verify_authenticity_token
 
+  def rspotify_auth
+    RSpotify::authenticate(ENV['SPOTIFY_CLIENT_ID'], ENV['SPOTIFY_CLIENT_SECRET'])
+  end
+
   def format(track)
     likes = get_likes(track.uri)
     comments = get_comments(track.uri)
