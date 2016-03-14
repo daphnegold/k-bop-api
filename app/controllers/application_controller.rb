@@ -4,6 +4,22 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   skip_before_action :verify_authenticity_token
 
+  def format(track)
+    likes = get_likes(track.uri)
+    comments = get_comments(track.uri)
+
+    return {
+      title: track.name,
+      artist: track.artists.first.name,
+      uri: track.uri,
+      preview: track.preview_url,
+      image_large: track.album.images.first["url"],
+      spotify_url: track.external_urls["spotify"],
+      likes: likes,
+      comments: comments
+    }
+  end
+
   def get_comments(track_uri)
     song = Song.find_by(uri: track_uri)
 
