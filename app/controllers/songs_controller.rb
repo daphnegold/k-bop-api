@@ -8,9 +8,9 @@ class SongsController < ApplicationController
       user = User.find_by(uid: uid)
       song = Song.find_by(uri: song_uri) || Song.create(uri: song_uri)
       song.comments << Comment.create(text: comment_text, user_id: user.id)
-      render json: { "status": "Ok" }, status: :ok
+      render json: { "status" => "Ok" }, status: :ok
     else
-      render json: { "error": "Comment could not be created" }, status: :bad_request
+      render json: { "error" => "Comment could not be created" }, status: :bad_request
     end
   end
 

@@ -7,7 +7,7 @@ class PlaylistsController < ApplicationController
     user = User.find_by(uid: user_id)
 
     unless user
-      render json: { "error": "Invalid request" }
+      render json: { "error" => "Invalid request" }
     else
       playlist = user.playlist
 
@@ -17,7 +17,7 @@ class PlaylistsController < ApplicationController
         spotify_playlist.remove_tracks!(spotify_tracks)
         PlaylistEntry.where(playlist: playlist).destroy_all
 
-        render json: { "status": "Deleted all" }, status: :ok
+        render json: { "status" => "Deleted all" }, status: :ok
 
       else
         song = Song.find_by(uri: song_uri)
@@ -33,7 +33,7 @@ class PlaylistsController < ApplicationController
           end
         end
 
-        render json: { "status": "Deleted" }, status: :ok
+        render json: { "status" => "Deleted" }, status: :ok
       end
     end
   end
@@ -90,7 +90,7 @@ class PlaylistsController < ApplicationController
     song_uri = params[:data][:uri]
 
     unless user_id && song_uri
-      render json: { "error": "Invalid request" }, status: :bad_request
+      render json: { "error" => "Invalid request" }, status: :bad_request
     else
       user = User.find_by(uid: user_id)
       if user
@@ -108,13 +108,13 @@ class PlaylistsController < ApplicationController
       end
 
       unless playlist_entry.save
-        render json: { "status": "Entry already exists" }
+        render json: { "status" => "Entry already exists" }
       else
         song.increment!(:likes)
         spotify_playlist = RSpotify::Playlist.find(user.uid, playlist.pid)
         spotify_user.follow(spotify_playlist)
         spotify_playlist.add_tracks!([song])
-        render json: { "status": "Ok" }, status: :ok
+        render json: { "status" => "Ok" }, status: :ok
       end
     end
   end
