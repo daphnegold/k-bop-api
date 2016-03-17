@@ -6,7 +6,8 @@
 - [General information](#information)
   - [Dependencies](#dependencies)
 - [How to contribute](#contributing)
-  - [Configuration & testing](#configuration)
+  - [Configuration](#configuration)
+  - [Testing](#testing)
 
 ## Information
 This API:  
