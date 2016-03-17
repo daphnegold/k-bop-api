@@ -3,10 +3,10 @@
 [![Code Climate](https://codeclimate.com/github/daphnegold/k-bop-api/badges/gpa.svg)](https://codeclimate.com/github/daphnegold/k-bop-api)
 
 ## Contents
-- [General information & dependencies](#information)
-- [Product Plan](#product-plan)
+- [General information](#information)
+  - [Dependencies](#dependencies)
 - [How to contribute](#contributing)
-- [Configuration & testing](#configuration)
+  - [Configuration & testing](#configuration)
 
 ## Information
 This API:  
@@ -18,6 +18,7 @@ This API:
 ### Dependencies
 - Ruby Version 2.2.3
 - Spotify OAuth & REST API
+- RSpotify gem
 
 ## Contributing
 1. Fork & clone the repo
@@ -28,7 +29,7 @@ This API:
 6. `rake db:migrate`
 7. Win!
 
-## Configuration
+### Configuration
 Register an app with Spotify and set your callback to `http://localhost:3000/auth/spotify`.  
 
 Visit `http://localhost:3000/auth/spotify`  and authenticate to generate user data.  
