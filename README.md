@@ -4,6 +4,7 @@
 
 ## Contents
 - [General information & dependencies](#information)
+- [Product Plan](#product-plan)
 - [How to contribute](#contributing)
 - [Configuration & testing](#configuration)
 
@@ -11,6 +12,8 @@
 This API:  
 - Serves up song recommendations
 - Manages Spotify playlists & database interactions
+- [Product Plan](https://github.com/daphnegold/k-bop-api/blob/master/product-plan.md)
+- [Trello Board](https://trello.com/b/sn0PXJ4Z/k-bop)
 
 ### Dependencies
 - Ruby Version 2.2.3
