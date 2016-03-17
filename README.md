@@ -2,12 +2,10 @@
 
 [![Code Climate](https://codeclimate.com/github/daphnegold/k-bop-api/badges/gpa.svg)](https://codeclimate.com/github/daphnegold/k-bop-api)
 
-## Table of Contents
-- [Information](#information)
-  - [Dependencies](#resources)
-- [Contributing](#contributing)
-- [Configuration](#configuration)
-  - [Testing](#testing)
+## Contents
+- [General information & dependencies](#information)
+- [How to contribute](#contributing)
+- [Configuration & testing](#configuration)
 
 ## Information
 This API:  
@@ -16,6 +14,7 @@ This API:
 
 ### Dependencies
 - Ruby Version 2.2.3
+- Spotify OAuth & REST API
 
 ## Contributing
 1. Fork & clone the repo
