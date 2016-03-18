@@ -33,7 +33,7 @@ This API:
 ### Configuration
 Register an app with Spotify and set your callback to `http://localhost:3000/auth/spotify`.  
 
-Visit `http://localhost:3000/auth/spotify`  and authenticate to generate user data.  
+Visit `http://localhost:3000/auth/spotify` and authenticate to generate user data.  
 
 Create a .env file in the root directory with the following:
 ```
