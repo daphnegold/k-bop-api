@@ -1,5 +1,5 @@
 class PlaylistsController < ApplicationController
-  
+
   def delete_song
     user_id = params[:uid]
     song_uri = params[:uri]
@@ -69,7 +69,7 @@ class PlaylistsController < ApplicationController
 
       render json: { data: { songs: temp, link: external_link } }, status: :ok
     else
-      render json: [], status: :no_content
+      render json: { data: { songs: [] } }, status: :ok
     end
   end
 
