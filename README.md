@@ -1,7 +1,5 @@
 # k-bop-api
 
-[![Code Climate](https://codeclimate.com/github/daphnegold/k-bop-api/badges/gpa.svg)](https://codeclimate.com/github/daphnegold/k-bop-api)
-
 ## Contents
 - [General information](#information)
   - [Dependencies](#dependencies)
